@@ -10,7 +10,9 @@ public class Game : MonoBehaviour {
     [SerializeField] private List<Player> m_players;
     private int m_currentPlayerIndex = 0;
     private BoardStorage m_board = new BoardStorage();
-    private bool m_running = true;
+    private bool m_running = false;
+    private bool m_cubeDiagonalsAllowed = false;
+    private bool m_aiEnabled = false;
     private static Game s_game;
     
     public static Game instance() {
@@ -21,7 +23,18 @@ public class Game : MonoBehaviour {
         m_currentPlayerIndex = 0;
         m_board.clear();
         onReset.Invoke();
+    }
+
+    public void start() {
         m_running = true;
+    }
+
+    public void toggleCubeDiagonals(bool value) {
+        m_cubeDiagonalsAllowed = value;
+    }
+
+    public void toggleAI(bool value) {
+        m_aiEnabled = value;
     }
     
     public void switchToNextPlayer() {
@@ -106,12 +119,15 @@ public class Game : MonoBehaviour {
             i => new Vector3Int(i, y, 2-i), // xz-plane second diagonal
             i => new Vector3Int(x, i, i), // zy-plane first diagonal
             i => new Vector3Int(x, i, 2-i), // zy-plane second diagonal
-            
-            /*i => new Vector3Int(i, i, i), // cube diagonal
-            i => new Vector3Int(i, 2-i, i), // cube diagonal
-            i => new Vector3Int(2-i, i, i), // cube diagonal
-            i => new Vector3Int(i, i, 2-i), // cube diagonal*/
         };
+        if (m_cubeDiagonalsAllowed) {
+            winFunctions.AddRange(new List<Func<int, Vector3Int>>() {
+                i => new Vector3Int(i, i, i), // cube diagonal
+                i => new Vector3Int(i, 2-i, i), // cube diagonal
+                i => new Vector3Int(2-i, i, i), // cube diagonal
+                i => new Vector3Int(i, i, 2-i), // cube diagonal
+            });
+        }
 
         bool win = false;
         foreach(var func in winFunctions) {

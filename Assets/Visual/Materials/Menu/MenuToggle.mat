@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MenuToggle
+  m_Shader: {fileID: 4800000, guid: 57ac1a53678671540b28d011b5bf5ee2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _Highlight: 0
+    - _Toggled: 0
+    m_Colors:
+    - _Color: {r: 0, g: 0.8984175, b: 1, a: 0.38039216}
+    - _ColorOff: {r: 1, g: 0.5188678, b: 0.5188678, a: 0.38039216}
+    - _ColorOn: {r: 0.6233295, g: 1, b: 0.5490566, a: 0.38039216}
+    - _HighlightColor: {r: 0, g: 0.8980393, b: 1, a: 0.50980395}
+    - _HighlightColorOff: {r: 1, g: 0.517647, b: 0.517647, a: 0.50980395}
+    - _HighlightColorOn: {r: 0.62352943, g: 1, b: 0.5490196, a: 0.50980395}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

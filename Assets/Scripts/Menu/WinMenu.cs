@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WinMenu : MonoBehaviour {
+public class WinMenu : Menu {
     [SerializeField] private TextMeshPro m_titleText;
     [SerializeField] private List<Transform> m_buttons;
     [SerializeField] private List<Colors> m_colors;

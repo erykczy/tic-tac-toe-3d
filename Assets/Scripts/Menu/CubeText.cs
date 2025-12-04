@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class CubeText : MonoBehaviour {
     public String text;
+    public String toggledOnText;
     public Color defaultColor;
     public Color highlightColor;
+    public Color defaultColorOn;
+    public Color highlightColorOn;
     [Range(0.0f, 1.0f)] public float highlight;
+    [Range(0.0f, 1.0f)] public float toggled;
     [SerializeField] private GameObject m_prefab;
     private List<TextMeshPro> m_texts = new List<TextMeshPro>();
     private static List<Vector3> s_directions = new List<Vector3>() {
@@ -28,8 +32,8 @@ public class CubeText : MonoBehaviour {
     private void Update() {
         foreach(var text in m_texts)
         {
-            text.color = Color.Lerp(defaultColor, highlightColor, highlight);
-            text.text = this.text;
+            text.color = Color.Lerp(Color.Lerp(defaultColor, defaultColorOn, toggled), Color.Lerp(highlightColor, highlightColorOn, toggled), highlight);
+            text.text = toggled >= 0.5f ? this.toggledOnText : this.text;
         }
     }
 }

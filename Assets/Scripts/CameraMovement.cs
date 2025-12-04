@@ -13,7 +13,6 @@ public class CameraMovement : MonoBehaviour {
     [SerializeField] private float m_maxDistance;
     [SerializeField] private float m_focusChangeTime;
     [SerializeField] private Vector3 m_defaultFocus;
-    [SerializeField] private Vector3 m_winFocus;
     private Vector3 m_cameraVector = Vector3.back;
     private float m_targetDistance;
     private Vector3 m_targetFocus;
@@ -27,11 +26,18 @@ public class CameraMovement : MonoBehaviour {
         m_targetDistance = m_distance;
         m_targetFocus = m_defaultFocus;
         m_focus = m_defaultFocus;
-        SceneDirector.instance().afterWin.AddListener(afterWin);
-        Game.instance().onReset.AddListener(onReset);
     }
 
     private void Update() {
+        m_targetFocus = Vector3.zero;
+        foreach(var menu in FindObjectsByType<Menu>(FindObjectsSortMode.None))
+        {
+            if (menu.isEnabled()) {
+                m_targetFocus = menu.getCameraFocus();
+                break;
+            }
+        }
+        
         if (Input.GetMouseButton(1)) {
             var mouseDelta = (Vector2)Input.mousePosition - m_prevPos;
             mouseDelta *= m_sensivitivity;
@@ -62,13 +68,5 @@ public class CameraMovement : MonoBehaviour {
         
         transform.position = m_focus + m_distance * m_cameraVector;
         transform.forward = -m_cameraVector;
-    }
-
-    private void afterWin(Game.WinEvent e) {
-        m_targetFocus = m_winFocus;
-    }
-
-    private void onReset() {
-        m_targetFocus = m_defaultFocus;
     }
 }
