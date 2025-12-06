@@ -6,4 +6,5 @@ public class Player {
     public string name;
     public GameObject prefab;
     public Color cellBackgroundColor;
+    public Texture2D cursor;
 }

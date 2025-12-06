@@ -9,6 +9,7 @@ public class CellVisuals : MonoBehaviour {
     private Cell m_cell;
     private Color m_defaultBackgroundColor;
     private Animator m_backgroundAnimator;
+    private bool m_hovered;
 
     public void highlight() {
         m_backgroundAnimator.SetTrigger("HighlightImpulse");
@@ -26,6 +27,7 @@ public class CellVisuals : MonoBehaviour {
             if (player != null) {
                 m_model = Instantiate(player.prefab, transform.position, player.prefab.transform.rotation, transform).transform;
                 m_backgroundRenderer.material.SetColor("_Color", player.cellBackgroundColor);
+                OnMouseExit();
             }
         }
     }
@@ -39,10 +41,13 @@ public class CellVisuals : MonoBehaviour {
     private void OnMouseEnter() {
         if(!Game.instance().isRunning()) return;
         setHover(true);
+        m_hovered = true;
+        Cursor.SetCursor(Game.instance().getCurrentPlayer().cursor, new Vector2(8.0f, 8.0f), CursorMode.Auto);
     }
 
     private void OnMouseExit() {
-        if(!Game.instance().isRunning()) return;
-        setHover(false);       
+        setHover(false);
+        m_hovered = false;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }
